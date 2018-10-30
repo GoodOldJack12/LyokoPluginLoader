@@ -62,7 +62,7 @@ namespace LyokoPluginLoader
               // Create the instance
               select (LyokoAPIPlugin) Activator.CreateInstance(type)
           ).ToList();
-
+          Plugins = new List<LyokoAPIPlugin>();
           foreach (var unloadedPlugin in UnloadedPlugins)
           {
               if (unloadedPlugin.OnEnable())
