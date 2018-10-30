@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Reflection;
 using LyokoAPI.Plugin;
+using LyokoPluginLoader.Events;
 
 namespace LyokoPluginLoader
 {
@@ -15,16 +16,17 @@ namespace LyokoPluginLoader
       public List<LyokoAPIPlugin> Plugins;
       public PluginLoader(string path)
       {
-          if (getOrCreateDirectory(path, out pluginDirectory))
+          if (GetOrCreateDirectory(path, out pluginDirectory))
           {
               LoadPlugins();
+              RegisterListeners();
           }
       }
 
 
 
 
-      private bool getOrCreateDirectory(string path, out DirectoryInfo directory)
+      private bool GetOrCreateDirectory(string path, out DirectoryInfo directory)
       {
           if (File.Exists(path))
           {
@@ -84,12 +86,20 @@ namespace LyokoPluginLoader
           Plugins.ForEach(plugin => plugin.OnEnable());
       }
 
-      internal void onGameStart(bool story = false)
+      private void RegisterListeners()
+      {
+        GameStartEvent.Subscribe(OnGameStart);
+        GameEndEvent.Subscribe(OnGameEnd);
+      }
+      
+
+
+      private void OnGameStart(bool story = false)
       {
           Plugins.ForEach(plugin => plugin.OnGameStart(story));
       }
 
-      internal void onGameEnd(bool failed)
+      private void OnGameEnd(bool failed)
       {
           Plugins.ForEach(plugin => plugin.OnGameEnd(failed));
       }
