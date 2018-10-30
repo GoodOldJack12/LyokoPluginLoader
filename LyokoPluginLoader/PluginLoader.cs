@@ -74,5 +74,25 @@ namespace LyokoPluginLoader
           }
       }
 
+      public void DisableAll()
+      {
+          Plugins.ForEach(plugin=>plugin.OnDisable());
+      }
+
+      public void EnableAll()
+      {
+          Plugins.ForEach(plugin => plugin.OnEnable());
+      }
+
+      internal void onGameStart(bool story = false)
+      {
+          Plugins.ForEach(plugin => plugin.OnGameStart(story));
+      }
+
+      internal void onGameEnd(bool failed)
+      {
+          Plugins.ForEach(plugin => plugin.OnGameEnd(failed));
+      }
+
   }
 }
