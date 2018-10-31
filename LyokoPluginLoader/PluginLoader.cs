@@ -69,10 +69,11 @@ namespace LyokoPluginLoader
               if (loaded)
               {
                   Plugins.Add(unloadedPlugin);
+                  Console.WriteLine("The plugin: {0} by {1} has been loaded.",unloadedPlugin.Name,unloadedPlugin.Author);
               }
               else
               {
-                  Console.WriteLine("The plugin: {0} by {1} couldn't be loaded!",unloadedPlugin.GetName(),unloadedPlugin.GetAuthor());
+                  Console.WriteLine("The plugin: {0} by {1} couldn't be loaded!",unloadedPlugin.Name,unloadedPlugin.Author);
               }
           }
       }
