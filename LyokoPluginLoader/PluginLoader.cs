@@ -65,7 +65,8 @@ namespace LyokoPluginLoader
           Plugins = new List<LyokoAPIPlugin>();
           foreach (var unloadedPlugin in UnloadedPlugins)
           {
-              if (unloadedPlugin.OnEnable())
+              bool loaded = unloadedPlugin.OnEnable();
+              if (loaded)
               {
                   Plugins.Add(unloadedPlugin);
               }
