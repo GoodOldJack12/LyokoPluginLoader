@@ -31,7 +31,7 @@ namespace LyokoPluginLoader
       {
           if (File.Exists(path))
           {
-              LyokoLogger.Log("LyokoPluginLoader","Go yell this at the application dev: The given plugin directory is a file!");
+              LyokoLogger.Log("LyokoPluginLoader","Go yell this at the application dev: The given plugin directory is a file!"); //this will likely never show up unless application dev subscribes to logger
               directory = null;
               return false;
           }else if (Directory.Exists(path))
@@ -63,7 +63,28 @@ namespace LyokoPluginLoader
               // Create the instance
               select type
           ).ToList();
-
+          Plugins = new List<LyokoAPIPlugin>();
+          #region LoadLogger
+          var loggerplugin = unloadedTypes.Find(type => type.Name.Equals("LoggerPlugin"));
+          if (loggerplugin != null)
+          {
+              try
+              {
+                  var logger = ((LyokoAPIPlugin) Activator.CreateInstance(loggerplugin));
+                  logger.Enable();
+                  if (logger.Enabled)
+                  {
+                      Plugins.Add(logger);
+                      unloadedTypes.Remove(loggerplugin);
+                  }
+              }
+              catch(TypeLoadException)
+              {
+                  //do nothing
+              }
+          }
+          #endregion
+          
           foreach (var type in unloadedTypes)
           {
               try
@@ -76,7 +97,6 @@ namespace LyokoPluginLoader
               }
           }
           
-          Plugins = new List<LyokoAPIPlugin>();
           foreach (var unloadedPlugin in UnloadedPlugins)
           {
               bool loaded = unloadedPlugin.Enable();
@@ -114,6 +134,6 @@ namespace LyokoPluginLoader
       {
           Plugins.ForEach(plugin => plugin.OnGameEnd(failed));
       }
-
+      
   }
 }
