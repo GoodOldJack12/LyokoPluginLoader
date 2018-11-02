@@ -49,7 +49,7 @@ namespace LyokoPluginLoader
       {
           string[] pluginFiles = Directory.GetFiles(pluginDirectory.FullName);
           List<LyokoAPIPlugin> UnloadedPlugins = new List<LyokoAPIPlugin>();
-          UnloadedPlugins = (
+          var unloadedTypes = (
               // From each file in the files.
               from file in pluginFiles
               // Load the assembly.
@@ -60,32 +60,40 @@ namespace LyokoPluginLoader
               // Where the type implements the interface.
               where typeof(LyokoAPIPlugin).IsAssignableFrom(type)
               // Create the instance
-              select (LyokoAPIPlugin) Activator.CreateInstance(type)
+              select type
           ).ToList();
+
+          foreach (var type in unloadedTypes)
+          {
+              try
+              {
+                  UnloadedPlugins.Add((LyokoAPIPlugin) Activator.CreateInstance(type));
+              }
+              catch (TypeLoadException)
+              {
+                  Console.WriteLine("An unidentified plugin could not be loaded! Check if Your plugin has the right API version!");
+              }
+          }
+          
           Plugins = new List<LyokoAPIPlugin>();
           foreach (var unloadedPlugin in UnloadedPlugins)
           {
-              bool loaded = unloadedPlugin.OnEnable();
+              bool loaded = unloadedPlugin.Enable();
               if (loaded)
               {
                   Plugins.Add(unloadedPlugin);
-                  Console.WriteLine("The plugin: {0} by {1} has been loaded.",unloadedPlugin.Name,unloadedPlugin.Author);
-              }
-              else
-              {
-                  Console.WriteLine("The plugin: {0} by {1} couldn't be loaded!",unloadedPlugin.Name,unloadedPlugin.Author);
               }
           }
       }
 
       public void DisableAll()
       {
-          Plugins.ForEach(plugin=>plugin.OnDisable());
+          Plugins.ForEach(plugin=>plugin.Disable());
       }
 
       public void EnableAll()
       {
-          Plugins.ForEach(plugin => plugin.OnEnable());
+          Plugins.ForEach(plugin => plugin.Enable());
       }
 
       private void RegisterListeners()
