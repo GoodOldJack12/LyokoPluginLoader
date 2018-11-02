@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Reflection;
+using LyokoAPI.Events;
 using LyokoAPI.Plugin;
 using LyokoPluginLoader.Events;
 
@@ -30,7 +31,7 @@ namespace LyokoPluginLoader
       {
           if (File.Exists(path))
           {
-              Console.WriteLine("The given plugin directory is a file!");
+              LyokoLogger.Log("LyokoPluginLoader","Go yell this at the application dev: The given plugin directory is a file!");
               directory = null;
               return false;
           }else if (Directory.Exists(path))
@@ -71,7 +72,7 @@ namespace LyokoPluginLoader
               }
               catch (TypeLoadException)
               {
-                  Console.WriteLine("An unidentified plugin could not be loaded! Check if Your plugin has the right API version!");
+                  LyokoLogger.Log("LyokoPluginLoader",$"An unidentified plugin ({type.Assembly.FullName}) could not be loaded! Check if Your plugin has the right API version!");
               }
           }
           
