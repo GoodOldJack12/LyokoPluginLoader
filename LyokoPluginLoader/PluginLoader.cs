@@ -48,7 +48,8 @@ namespace LyokoPluginLoader
 
       private void LoadPlugins()
       {
-          string[] pluginFiles = Directory.GetFiles(pluginDirectory.FullName);
+          List<String> pluginFiles = new List<string>(Directory.GetFiles(pluginDirectory.FullName));
+          pluginFiles.RemoveAll(name => !name.EndsWith(".dll"));
           List<LyokoAPIPlugin> UnloadedPlugins = new List<LyokoAPIPlugin>();
           var unloadedTypes = (
               // From each file in the files.
