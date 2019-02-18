@@ -6,7 +6,7 @@ using LyokoPluginLoader.Commands.Exceptions;
 
 namespace LyokoPluginLoader.Commands
 {
-    public abstract class Command : ICommand
+    internal abstract class Command : ICommand
 
     {
         protected ICollection<ICommand> SubCommands = new List<ICommand>(); 

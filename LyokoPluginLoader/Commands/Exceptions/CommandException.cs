@@ -3,7 +3,7 @@ using LyokoAPI.Events;
 
 namespace LyokoPluginLoader.Commands.Exceptions
 {
-    public class CommandException : AbstractCommandException
+    internal class CommandException : AbstractCommandException
     {
         private string _errorString;
         private string _usage;

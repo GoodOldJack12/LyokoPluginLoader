@@ -1,6 +1,6 @@
 namespace LyokoPluginLoader.Commands
 {
-    public interface ICommand
+    internal interface ICommand
     {
         
         string Usage { get; }

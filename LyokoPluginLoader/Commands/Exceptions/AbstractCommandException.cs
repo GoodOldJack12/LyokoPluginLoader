@@ -2,7 +2,7 @@ using System;
 
 namespace LyokoPluginLoader.Commands.Exceptions
 {
-    public abstract class AbstractCommandException : Exception
+    internal abstract class AbstractCommandException : Exception
 
     {
     public abstract void ResolveToLog();

@@ -7,7 +7,7 @@ using LyokoPluginLoader.Commands;
 
 namespace LyokoPluginLoader
 {
-    public class CommandListener
+    internal class CommandListener
     {
         private static ICollection<ICommand> _commands = new List<ICommand>();
         private static bool _listening;
