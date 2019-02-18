@@ -85,6 +85,10 @@ namespace LyokoPluginLoader
               }
           }
           #endregion
+
+          #region Greeting
+          LyokoLogger.Log("LyokoPluginLoader",LoaderInfo.GetGreeting());
+          #endregion
           
           foreach (var type in unloadedTypes)
           {
