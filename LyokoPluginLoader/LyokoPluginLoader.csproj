@@ -44,6 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandListener.cs" />
+    <Compile Include="Commands\Command.cs" />
+    <Compile Include="Commands\Exceptions\CommandException.cs" />
+    <Compile Include="Commands\Exceptions\AbstractCommandException.cs" />
+    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\Pluginlist.cs" />
     <Compile Include="Events\Events.cs" />
     <Compile Include="Events\GameEndEvent.cs" />
     <Compile Include="Events\GameStartEvent.cs" />

@@ -10,6 +10,7 @@ namespace LyokoPluginLoader
 {
     public static class LoaderInfo
     {
+        public static PluginLoader Instance { get; private set; }
         public static Collection<LVersion> CompatibleLapiVersions = new Collection<LVersion>()
         {
             "2.0.0"
@@ -17,6 +18,13 @@ namespace LyokoPluginLoader
 
         public static LVersion Version = "2.0.0";
 
+        public static void SetInstance(PluginLoader loader)
+        {
+            if (Instance == null)
+            {
+                Instance = loader;
+            }
+        }
         public static string GetGreeting()
         {
             DateTime now = DateTime.Now;
@@ -46,17 +54,16 @@ namespace LyokoPluginLoader
             return greeting;
         }
 
-        public static string PluginsList(ICollection<LyokoAPIPlugin> loadedPlugins)
+        public static string PluginsList()
         {
-            IEnumerable<LyokoAPIPlugin> enabled = loadedPlugins.Where(plugin => plugin.Enabled);
-            IEnumerable<LyokoAPIPlugin> disabled = loadedPlugins.Where(plugin => !plugin.Enabled);
-            string result = $"{EnabledPluginsList(enabled.ToList())}\n \n{DisabledPluginsList(disabled.ToList())}";
+            string result = $"{EnabledPluginsList()}\n \n{DisabledPluginsList()}";
             return result;
         }
 
-        public static string EnabledPluginsList(ICollection<LyokoAPIPlugin> loadedPlugins)
+        public static string EnabledPluginsList()
         {
-            string title = $"LIST OF ENABLED PLUGINS ({loadedPlugins.Count})\n";
+            var loadedPlugins = Instance.Plugins.Where(plugin => plugin.Enabled).ToList();
+            string title = $"LIST OF ENABLED PLUGINS ({loadedPlugins.Count()})\n";
 
             string list = "";
             foreach (var lyokoApiPlugin in loadedPlugins)
@@ -66,9 +73,10 @@ namespace LyokoPluginLoader
 
             return $"{title} {list}";
         }
-        public static string DisabledPluginsList(ICollection<LyokoAPIPlugin> loadedPlugins)
+        public static string DisabledPluginsList()
         {
-            string title = $"LIST OF DISABLED PLUGINS ({loadedPlugins.Count})\n";
+            var loadedPlugins = Instance.Plugins.Where(plugin => !plugin.Enabled).ToList();
+            string title = $"LIST OF DISABLED PLUGINS ({loadedPlugins.Count()})\n";
 
             string list = "";
             foreach (var lyokoApiPlugin in loadedPlugins)

@@ -21,6 +21,8 @@ namespace LyokoPluginLoader
           {
               LoadPlugins();
               RegisterListeners();
+              LoaderInfo.SetInstance(this);
+              AppDomain.CurrentDomain.ProcessExit += new EventHandler(Quit);
           }
       }
 
@@ -126,6 +128,15 @@ namespace LyokoPluginLoader
       {
         GameStartEvent.Subscribe(OnGameStart);
         GameEndEvent.Subscribe(OnGameEnd);
+        CommandListener.StartListening();
+      }
+
+      private void Quit(object sender, EventArgs eventArgs)
+      {
+          DisableAll();
+          GameEndEvent.Unsubscrive(OnGameStart);
+          GameStartEvent.Unsubscrive(OnGameStart);
+          CommandListener.StopListening();
       }
       
 
