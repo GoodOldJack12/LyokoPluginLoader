@@ -66,15 +66,18 @@ namespace LyokoPluginLoader
               from file in pluginFiles
               // Load the assembly.
               let asm = Assembly.LoadFile(file)
-              //check for LAPI and lyokopluginloader
+              
+              /*//check for LAPI and lyokopluginloader
+               
               where !asm.FullName.ToLower().Equals("lyokoapi") 
                     || !asm.FullName.ToLower().Equals("LAPI") 
-                    || !asm.FullName.ToLower().Equals((this.GetType().Assembly.FullName.ToLower()))
+                    || !asm.FullName.ToLower().Equals((this.GetType().Assembly.FullName.ToLower()))*/
+              
               // For every type in the assembly that is visible outside of
               // the assembly.
               from type in asm.GetExportedTypes()
               // Where the type implements the interface.
-              where typeof(LyokoAPIPlugin).IsAssignableFrom(type)
+              where type.IsSubclassOf(typeof(LyokoAPIPlugin))
               // Create the instance
               select type
           ).ToList();
