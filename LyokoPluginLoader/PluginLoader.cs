@@ -14,14 +14,24 @@ namespace LyokoPluginLoader
   public class PluginLoader
   {
       private DirectoryInfo pluginDirectory;
-      public List<LyokoAPIPlugin> Plugins;
+      public List<LyokoAPIPlugin> Plugins = new List<LyokoAPIPlugin>();
+      private InternalLogger InternalLogger;
       public PluginLoader(string path)
       {
-          if (GetOrCreateDirectory(path, out pluginDirectory))
+          InternalLogger = new InternalLogger(path);
+          try
           {
-              LoadPlugins();
-              RegisterListeners();
+              if (GetOrCreateDirectory(path, out pluginDirectory))
+              {
+                  LoadPlugins();
+                  RegisterListeners();
+              }
           }
+          catch (Exception e)
+          {
+              InternalLogger?.Log($"An issue occured while starting LyokoPluginLoader: {e.ToString()}");
+          }
+          
       }
 
 
@@ -56,6 +66,10 @@ namespace LyokoPluginLoader
               from file in pluginFiles
               // Load the assembly.
               let asm = Assembly.LoadFile(file)
+              //check for LAPI and lyokopluginloader
+              where !asm.FullName.ToLower().Equals("lyokoapi") 
+                    || !asm.FullName.ToLower().Equals("LAPI") 
+                    || !asm.FullName.ToLower().Equals((this.GetType().Assembly.FullName.ToLower()))
               // For every type in the assembly that is visible outside of
               // the assembly.
               from type in asm.GetExportedTypes()
@@ -64,7 +78,6 @@ namespace LyokoPluginLoader
               // Create the instance
               select type
           ).ToList();
-          Plugins = new List<LyokoAPIPlugin>();
           #region LoadLogger
           var loggerplugin = unloadedTypes.Find(type => type.Name.Equals("LoggerPlugin"));
           if (loggerplugin != null)
@@ -135,6 +148,9 @@ namespace LyokoPluginLoader
       {
           Plugins.ForEach(plugin => plugin.OnGameEnd(failed));
       }
+      
+      
+      
       
   }
 }
