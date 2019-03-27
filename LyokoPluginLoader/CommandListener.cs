@@ -71,7 +71,7 @@ namespace LyokoPluginLoader
             commandargs = commandargs.ToList().GetRange(1, commandargs.Length).ToArray();
             if (!FindCommand(commandargs))
             {
-                CommandOutputEvent.Call("LPL","Command not found!");
+                CommandOutputEvent.Call("LPL",$"Command ${command} not found!");
             }
         }
         
