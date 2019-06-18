@@ -68,10 +68,10 @@ namespace LyokoPluginLoader
             {
                 return;
             }
-            commandargs = commandargs.ToList().GetRange(1, commandargs.Length).ToArray();
+            commandargs = commandargs.ToList().GetRange(1, commandargs.Length - 1).ToArray();
             if (!FindCommand(commandargs))
             {
-                CommandOutputEvent.Call("LPL",$"Command ${command} not found!");
+                CommandOutputEvent.Call("LPL",$"Command {command} not found!");
             }
         }
         
