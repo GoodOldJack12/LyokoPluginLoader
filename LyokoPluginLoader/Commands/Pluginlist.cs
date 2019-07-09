@@ -12,7 +12,7 @@ namespace LyokoPluginLoader.Commands
 
         protected override bool DoCommand(string[] args)
         {
-            CheckArgs(args, 0, 1);
+            CheckArgs(args, 0, 2);
             string response = "";
             if (args.Any())
             {
@@ -20,12 +20,15 @@ namespace LyokoPluginLoader.Commands
                 if (arg == "enabled")
                 {
                     response = LoaderInfo.EnabledPluginsList();
+                    CommandOutputEvent.Call("PluginList",LoaderInfo.SimplePluginListEnabled());
                 }else if (arg == "disabled")
                 {
                     response = LoaderInfo.DisabledPluginsList();
+                    CommandOutputEvent.Call("PluginList",LoaderInfo.SimplePluginlistDisabled());
                 }else if (arg == "all")
                 {
                     response = LoaderInfo.PluginsList();
+                    CommandOutputEvent.Call("PluginList",LoaderInfo.SimplePluginList());
                 }
                 else
                 {

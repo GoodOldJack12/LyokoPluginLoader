@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Reflection;
+using LyokoAPI.API;
 using LyokoAPI.Events;
 using LyokoAPI.Plugin;
 using LyokoPluginLoader.Events;
@@ -144,11 +145,15 @@ namespace LyokoPluginLoader
       private void OnGameStart(bool story = false)
       {
           Plugins.ForEach(plugin => plugin.OnGameStart(story));
+          LoaderInfo.GameStarted = true;
+          LoaderInfo.StoryModeEnabled = story;
       }
 
       private void OnGameEnd(bool failed)
       {
           Plugins.ForEach(plugin => plugin.OnGameEnd(failed));
+          LoaderInfo.GameStarted = false;
+          LoaderInfo.StoryModeEnabled = false;
       }
       
   }

@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="LyokoAPI, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\Builds\Devbuild\LyokoAPI.dll</HintPath>
+      <HintPath>..\..\LAPI-Git\LyokoAPI\bin\Debug\LyokoAPI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

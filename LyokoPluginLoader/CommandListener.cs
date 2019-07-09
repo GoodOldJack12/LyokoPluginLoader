@@ -40,7 +40,7 @@ namespace LyokoPluginLoader
             string name = commandargs[0];
             if (commandargs.Length > 1)
             {
-                commandargs = commandargs.ToList().GetRange(1, commandargs.Length).ToArray();
+                commandargs = commandargs.ToList().GetRange(1, commandargs.Length - 1).ToArray();
             }
             else
             {
