@@ -16,18 +16,34 @@ namespace LyokoPluginLoader
   {
       private DirectoryInfo pluginDirectory;
       public List<LyokoAPIPlugin> Plugins;
+      internal static PluginLoader Loader { get; private set; }
       public PluginLoader(string path)
       {
           if (GetOrCreateDirectory(path, out pluginDirectory))
           {
+              Info.SetConfigPath(path);
               LoadPlugins();
               RegisterListeners();
               LoaderInfo.SetInstance(this);
               AppDomain.CurrentDomain.ProcessExit += new EventHandler(Quit);
           }
+
+          Loader = this;
       }
 
+      public PluginLoader(string path, string pluginConfigDirectory)
+      {
+          if (GetOrCreateDirectory(path, out pluginDirectory))
+          {
+              Info.SetConfigPath(pluginConfigDirectory);
+              LoadPlugins();
+              RegisterListeners();
+              LoaderInfo.SetInstance(this);
+              AppDomain.CurrentDomain.ProcessExit += new EventHandler(Quit);
+          }
 
+          Loader = this;
+      }
 
 
       private bool GetOrCreateDirectory(string path, out DirectoryInfo directory)
