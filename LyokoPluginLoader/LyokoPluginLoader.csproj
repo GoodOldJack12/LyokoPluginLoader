@@ -33,12 +33,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="LyokoAPI, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\LAPI-Git\LyokoAPI\bin\Debug\LyokoAPI.dll</HintPath>
+      <HintPath>..\packages\LyokoAPI.2.0.0-beta\lib\LyokoAPI.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="YamlDotNet, Version=6.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e">
+      <HintPath>..\packages\YamlDotNet.6.0.0\lib\net35\YamlDotNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandListener.cs" />
@@ -47,12 +52,18 @@
     <Compile Include="Commands\Exceptions\AbstractCommandException.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\Pluginlist.cs" />
+    <Compile Include="Commands\Plugins\Disable.cs" />
+    <Compile Include="Commands\Plugins\Enable.cs" />
+    <Compile Include="Commands\Plugins\Plugins.cs" />
     <Compile Include="Events\Events.cs" />
     <Compile Include="Events\GameEndEvent.cs" />
     <Compile Include="Events\GameStartEvent.cs" />
     <Compile Include="LoaderInfo.cs" />
     <Compile Include="PluginLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

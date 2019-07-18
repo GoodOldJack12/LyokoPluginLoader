@@ -15,6 +15,7 @@ namespace LyokoPluginLoader
         static CommandListener()
         {
             _commands.Add(new Pluginlist());
+            _commands.Add(new Plugins());
         }
         
         public static void StartListening()
