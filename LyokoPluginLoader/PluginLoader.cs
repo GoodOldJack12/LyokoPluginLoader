@@ -152,7 +152,7 @@ namespace LyokoPluginLoader
       {
           DisableAll();
           GameEndEvent.Unsubscrive(OnGameStart);
-          GameStartEvent.Unsubscrive(OnGameStart);
+          GameStartEvent.Unsubscribe(OnGameStart);
           CommandListener.StopListening();
       }
       
@@ -170,6 +170,16 @@ namespace LyokoPluginLoader
           Plugins.ForEach(plugin => plugin.OnGameEnd(failed));
           LoaderInfo.GameStarted = false;
           LoaderInfo.StoryModeEnabled = false;
+      }
+
+      private void OnInterfaceExit()
+      {
+          Plugins.ForEach(plugin => plugin.OnInterfaceExit());
+      }
+
+      private void OnInterfaceEnter()
+      {
+          Plugins.ForEach(plugin => plugin.OnInterfaceEnter());
       }
       
   }

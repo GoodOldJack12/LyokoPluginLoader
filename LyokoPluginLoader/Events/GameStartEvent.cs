@@ -15,7 +15,7 @@ namespace LyokoPluginLoader.Events
             return func;
         }
 
-        public static void Unsubscrive(Events.onGameEvent func)
+        public static void Unsubscribe(Events.onGameEvent func)
         {
             GameStartE -= func;
         }

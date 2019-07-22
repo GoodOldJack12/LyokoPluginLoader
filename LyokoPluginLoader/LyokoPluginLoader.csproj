@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="LyokoAPI, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\LyokoAPI.2.0.0-beta\lib\LyokoAPI.dll</HintPath>
+      <HintPath>..\packages\LyokoAPI.2.0.0-alpha002\lib\LyokoAPI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -41,7 +41,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="YamlDotNet, Version=6.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e">
-      <HintPath>..\packages\YamlDotNet.6.0.0\lib\net35\YamlDotNet.dll</HintPath>
+      <HintPath>..\packages\YamlDotNet.6.1.1\lib\net35\YamlDotNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -58,6 +58,7 @@
     <Compile Include="Events\Events.cs" />
     <Compile Include="Events\GameEndEvent.cs" />
     <Compile Include="Events\GameStartEvent.cs" />
+    <Compile Include="Events\InterfaceExitEvent.cs" />
     <Compile Include="LoaderInfo.cs" />
     <Compile Include="PluginLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
