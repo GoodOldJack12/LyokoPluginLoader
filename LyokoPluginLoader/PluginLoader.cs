@@ -7,6 +7,7 @@ using System.Reflection;
 using LyokoAPI.API;
 using LyokoAPI.Events;
 using LyokoAPI.Plugin;
+using LyokoPluginLoader.DependencyLoading;
 using LyokoPluginLoader.Events;
 
 namespace LyokoPluginLoader
@@ -16,12 +17,14 @@ namespace LyokoPluginLoader
   {
       private DirectoryInfo pluginDirectory;
       public List<LyokoAPIPlugin> Plugins;
+      private DependencyLoader DependencyLoader { get; }
       internal static PluginLoader Loader { get; private set; }
       public PluginLoader(string path)
       {
           if (GetOrCreateDirectory(path, out pluginDirectory))
           {
               Info.SetConfigPath(path);
+              DependencyLoader = new DependencyLoader(Path.Combine(path, "lib"));
               LoadPlugins();
               RegisterListeners();
               LoaderInfo.SetInstance(this);
@@ -36,6 +39,7 @@ namespace LyokoPluginLoader
           if (GetOrCreateDirectory(path, out pluginDirectory))
           {
               Info.SetConfigPath(pluginConfigDirectory);
+              DependencyLoader = new DependencyLoader(Path.Combine(path, "lib"));
               LoadPlugins();
               RegisterListeners();
               LoaderInfo.SetInstance(this);
@@ -120,14 +124,25 @@ namespace LyokoPluginLoader
                   LyokoLogger.Log("LyokoPluginLoader",$"An unidentified plugin ({type.Assembly.FullName}) could not be loaded! Check if Your plugin has the right API version!");
               }
           }
-          
+          LyokoLogger.Log("LPL",$"Enabling plugins"); //TODO remove
           foreach (var unloadedPlugin in UnloadedPlugins)
           {
-              bool loaded = unloadedPlugin.Enable();
-              if (loaded)
+              try
               {
-                  Plugins.Add(unloadedPlugin);
+                  bool loaded = unloadedPlugin.Enable();
+                  LyokoLogger.Log("LPL",$"Enabled {unloadedPlugin.Name}"); //TODO remove
+                  DependencyLoader.LoadDependency(unloadedPlugin);
+                  if (loaded)
+                  {
+                      Plugins.Add(unloadedPlugin);
+                  }
               }
+              catch (Exception e)
+              {
+                  LyokoLogger.Log("LyokoPluginLoader",$"An exception occured while loading dependencies of {unloadedPlugin.Name}:{e.ToString()} {e.Source}.\n Plugin was disabled and removed from the list.");
+                  unloadedPlugin.Disable();
+              }
+              
           }
       }
 
