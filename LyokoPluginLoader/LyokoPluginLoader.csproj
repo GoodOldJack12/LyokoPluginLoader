@@ -111,6 +111,7 @@
     <Compile Include="Events\Events.cs" />
     <Compile Include="Events\GameEndEvent.cs" />
     <Compile Include="Events\GameStartEvent.cs" />
+    <Compile Include="Events\InterfaceEnterEvent.cs" />
     <Compile Include="Events\InterfaceExitEvent.cs" />
     <Compile Include="LoaderInfo.cs" />
     <Compile Include="PluginLoader.cs" />

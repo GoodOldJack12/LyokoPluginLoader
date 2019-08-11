@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
@@ -160,14 +161,18 @@ namespace LyokoPluginLoader
       {
         GameStartEvent.Subscribe(OnGameStart);
         GameEndEvent.Subscribe(OnGameEnd);
+        InterfaceEnterEvent.Subscribe(OnInterfaceEnter);
+        InterfaceExitEvent.Subscribe(OnInterfaceExit);
         CommandListener.StartListening();
       }
 
       private void Quit(object sender, EventArgs eventArgs)
       {
           DisableAll();
-          GameEndEvent.Unsubscrive(OnGameStart);
+          GameEndEvent.Unsubscrive(OnGameEnd);
           GameStartEvent.Unsubscribe(OnGameStart);
+          InterfaceEnterEvent.Unsubscribe(OnInterfaceEnter);
+          InterfaceExitEvent.Unsubscribe(OnInterfaceExit);
           CommandListener.StopListening();
       }
       

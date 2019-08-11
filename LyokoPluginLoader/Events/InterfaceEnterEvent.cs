@@ -1,25 +1,24 @@
 namespace LyokoPluginLoader.Events
 {
-    public class InterfaceExitEvent
+    public class InterfaceEnterEvent
     {
-        internal static event Events.onVoidEvent InterfaceExitE;
+        internal static event Events.onVoidEvent InterfaceEnterE;
 
         public static Events.onVoidEvent Subscribe(Events.onVoidEvent e)
         {
-            InterfaceExitE += e;
+            InterfaceEnterE += e;
             return e;
         }
 
         public static Events.onVoidEvent Unsubscribe(Events.onVoidEvent e)
         {
-            InterfaceExitE -= e;
+            InterfaceEnterE -= e;
             return e;
         }
 
-
         private static void Call()
         {
-            InterfaceExitE?.Invoke();
+            InterfaceEnterE?.Invoke();
         }
     }
 }
