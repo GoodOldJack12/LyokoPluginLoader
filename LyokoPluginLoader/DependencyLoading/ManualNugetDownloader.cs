@@ -1,5 +1,5 @@
 
-using System;
+/*using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,18 +7,26 @@ using System.Net;
 using System.Text;
 using System.Xml;
 using Ionic.Zip;
-using LyokoAPI.Events;
+using LyokoAPI.Events;*/
 
 namespace LyokoPluginLoader.DependencyLoading
 {
     //kill me
-    public class NugetDownloader
+    public class ManualNugetDownloader
     {
-        private static string DownloadPath = Path.Combine(Path.GetTempPath(),"LAPIDependencies");
-        public static List<string> DownloadDLLs(string packageId, string versionString = "")
+        /*private static string DownloadPath = Path.Combine(Path.GetTempPath(),"LAPIDependencies");
+        public static List<string> DownloadDLLs(string packageId, string versionString = "", bool clean = true)
         {
             List<string> dllList = new List<string>();
             Directory.CreateDirectory(DownloadPath);
+            if (clean) // delete all files before running
+            {
+                var files = Directory.GetFiles(DownloadPath, "*", SearchOption.AllDirectories);
+                foreach (var file in files)
+                {
+                    File.Delete(file);
+                }
+            }
             using (var client = new WebClient())
             {
                 LyokoLogger.Log("LPL",$"Downloadeding file: {Path.Combine(DownloadPath,packageId)+".nupkg"}"); //TODO remove
@@ -49,7 +57,7 @@ namespace LyokoPluginLoader.DependencyLoading
             }
             foreach (var keyValuePair in dependencies)
             {
-                dllList.AddRange(DownloadDLLs(keyValuePair.Key,keyValuePair.Value));
+                dllList.AddRange(DownloadDLLs(keyValuePair.Key,keyValuePair.Value,false));
             }
 
             return dllList;
@@ -73,5 +81,6 @@ namespace LyokoPluginLoader.DependencyLoading
 
             return Dependencies;
         }
+    }*/
     }
 }

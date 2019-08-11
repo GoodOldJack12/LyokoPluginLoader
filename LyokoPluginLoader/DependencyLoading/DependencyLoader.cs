@@ -23,10 +23,10 @@ namespace LyokoPluginLoader.DependencyLoading
             {
                 return;
             }
-            var dllPaths = new List<string>();
+
             foreach (var pluginDependency in plugin.Dependencies)
             {
-                dllPaths.AddRange(downloadDepend(pluginDependency));
+                downloadDepend(pluginDependency);
             }
         }
 
@@ -35,11 +35,11 @@ namespace LyokoPluginLoader.DependencyLoading
             paths.ForEach(path => File.Move(path,Path.Combine(DependencyDir,Path.GetFileName(path))));
         }
 
-        private List<string> downloadDepend(Dependency dependency)
+        private void downloadDepend(Dependency dependency)
         {
             LyokoLogger.Log("LPL",$"DownLoading dependency {dependency.NugetID}"); //TODO remove
 
-            return NugetDownloader.DownloadDLLs(dependency.NugetID, dependency.VersionString);
+             AutomaticNugetDownloader.DownloadDLLs(dependency.NugetID, dependency.VersionString);
         }
     }
 }
