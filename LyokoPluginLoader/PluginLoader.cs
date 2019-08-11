@@ -124,14 +124,14 @@ namespace LyokoPluginLoader
                   LyokoLogger.Log("LyokoPluginLoader",$"An unidentified plugin ({type.Assembly.FullName}) could not be loaded! Check if Your plugin has the right API version!");
               }
           }
-          LyokoLogger.Log("LPL",$"Enabling plugins"); //TODO remove
+          //LyokoLogger.Log("LPL",$"Enabling plugins"); 
           foreach (var unloadedPlugin in UnloadedPlugins)
           {
+              bool loaded = unloadedPlugin.Enable();
               try
               {
-                  bool loaded = unloadedPlugin.Enable();
-                  LyokoLogger.Log("LPL",$"Enabled {unloadedPlugin.Name}"); //TODO remove
-                  DependencyLoader.LoadDependency(unloadedPlugin);
+                  //LyokoLogger.Log("LPL",$"Enabled {unloadedPlugin.Name}");
+                  //DependencyLoader.LoadDependency(unloadedPlugin);
                   if (loaded)
                   {
                       Plugins.Add(unloadedPlugin);
