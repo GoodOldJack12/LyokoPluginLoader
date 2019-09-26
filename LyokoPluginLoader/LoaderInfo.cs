@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using LyokoAPI.API;
+using LyokoAPI.API.Compatibility;
 using LyokoAPI.Events;
 using LyokoAPI.Plugin;
 
