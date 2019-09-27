@@ -11,10 +11,10 @@ LPL's prefix is 'loader'. The command syntax is (api.)loader.[subcommand]
 ### Information
 These commands will show brief information in the command output, and verbose output in the LyokoLog
 ```
-api.loader.pluginlist - show all plugins in log
-          .all       - show all plugins in chat, brief format
-          .enabled   - show all enabled plugins
-          .disabled  - show all disabled plugins
+api.loader.pluginlist         - show all plugins
+          .all                - same as above
+          .enabled            - show all enabled plugins
+          .disabled           - show all disabled plugins
 ```                       
 
 
