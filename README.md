@@ -19,7 +19,7 @@ api.loader.pluginlist         - show all plugins
 
 
 ### Plugin management
-```api.loader.plugins.enable.[pluginname] | enable a plugin```
+```api.loader.plugins.enable.[pluginname] - enable a plugin```
 
-```api.loader.plugins.disable[pluginname] | disable a plugin```
+```api.loader.plugins.disable[pluginname] - disable a plugin```
 
