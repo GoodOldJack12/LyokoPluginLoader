@@ -14,8 +14,17 @@ namespace LyokoPluginLoader.Commands
             {
                 throw new CommandException(this);
             }
-            PluginLoader.Loader.EnableAll();
-            CommandOutputEvent.Call("plugins.enable","All plugins enabled.");
+
+            if (LoaderInfo.DevMode || !LoaderInfo.StoryModeEnabled)
+            {
+                PluginLoader.Loader.EnableAll();
+                CommandOutputEvent.Call("plugins.enable","All plugins enabled.");
+            }
+            else
+            {
+                Output("Story mode is enabled!");
+            }
+            
             return true;
         }
     }
