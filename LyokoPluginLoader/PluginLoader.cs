@@ -31,7 +31,7 @@ namespace LyokoPluginLoader
               LoaderInfo.SetInstance(this);
               AppDomain.CurrentDomain.ProcessExit += new EventHandler(Quit);
           }
-
+          
           Loader = this;
       }
 

@@ -15,7 +15,9 @@ namespace LyokoPluginLoader
         static CommandListener()
         {
             _commands.Add(new Pluginlist());
-            _commands.Add(new Plugins());
+            _commands.Add(new Enable());
+            _commands.Add(new Disable());
+            _commands.Add(new Help());
         }
         
         public static void StartListening()
@@ -65,7 +67,7 @@ namespace LyokoPluginLoader
         private static void OnCommand(string command)
         {
             string[] commandargs = command.Split('.');
-            if (commandargs[0] != "loader")
+            if (commandargs[0] != "plugins")
             {
                 return;
             }

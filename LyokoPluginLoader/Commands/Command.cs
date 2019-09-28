@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
+using LyokoAPI.Events;
 using LyokoPluginLoader.Commands.Exceptions;
 
 namespace LyokoPluginLoader.Commands
@@ -54,6 +55,11 @@ namespace LyokoPluginLoader.Commands
                     throw new CommandException(this,"too much arguments");
             }
             
+        }
+
+        protected void Output(string output)
+        {
+            CommandOutputEvent.Call(this.Name,output);
         }
         
     }

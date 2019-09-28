@@ -15,6 +15,8 @@ namespace LyokoPluginLoader
         public static bool StoryModeEnabled { get; internal set; }
         public static bool GameStarted { get; internal set; }
 
+        public static bool DevMode { get; set; }= false;
+
         public static Collection<LVersion> CompatibleLapiVersions = new Collection<LVersion>()
         {
             "2.0.0"

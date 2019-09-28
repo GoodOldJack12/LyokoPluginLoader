@@ -7,8 +7,8 @@ namespace LyokoPluginLoader.Commands
 {
     internal class Pluginlist : Command
     {
-        public override string Usage { get; } = "api.loader.pluginlist(.enabled/.disabled/.all/(nothing)";
-        public override string Name { get; } = "pluginlist";
+        public override string Usage { get; } = "api.plugins.list(.enabled/.disabled/.all/(nothing)";
+        public override string Name { get; } = "list";
 
         protected override bool DoCommand(string[] args)
         {
