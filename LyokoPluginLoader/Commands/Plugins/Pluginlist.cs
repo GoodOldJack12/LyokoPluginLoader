@@ -38,6 +38,7 @@ namespace LyokoPluginLoader.Commands
             else
             {
                 response = LoaderInfo.PluginsList();
+                CommandOutputEvent.Call("PluginList",LoaderInfo.SimplePluginList());
             }
             LyokoLogger.Log("LyokoPluginLoader",response);
             return true;
