@@ -120,7 +120,7 @@ namespace LyokoPluginLoader
               {
                   UnloadedPlugins.Add((LyokoAPIPlugin) Activator.CreateInstance(type));
               }
-              catch (TypeLoadException)
+              catch (Exception)
               {
                   LyokoLogger.Log("LyokoPluginLoader",$"An unidentified plugin ({type.Assembly.FullName}) could not be loaded! Check if Your plugin has the right API version!");
               }
