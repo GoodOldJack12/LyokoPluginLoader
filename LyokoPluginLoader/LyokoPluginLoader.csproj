@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LyokoPluginLoader</RootNamespace>
     <AssemblyName>LyokoPluginLoader</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -33,43 +33,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="LyokoAPI, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\LyokoAPI.2.0.0-beta4\lib\LyokoAPI.dll</HintPath>
+      <HintPath>..\packages\LyokoAPI.2.0.0-beta8\lib\LyokoAPI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NuGet.Common, Version=5.2.0.3, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-      <HintPath>..\packages\NuGet.Common.5.2.0\lib\net472\NuGet.Common.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NuGet.Configuration, Version=5.2.0.3, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-      <HintPath>..\packages\NuGet.Configuration.5.2.0\lib\net472\NuGet.Configuration.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NuGet.Frameworks, Version=5.2.0.3, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-      <HintPath>..\packages\NuGet.Frameworks.5.2.0\lib\net472\NuGet.Frameworks.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NuGet.Packaging, Version=5.2.0.3, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-      <HintPath>..\packages\NuGet.Packaging.5.2.0\lib\net472\NuGet.Packaging.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NuGet.Packaging.Core, Version=5.2.0.3, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-      <HintPath>..\packages\NuGet.Packaging.Core.5.2.0\lib\net472\NuGet.Packaging.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NuGet.Protocol, Version=5.2.0.3, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-      <HintPath>..\packages\NuGet.Protocol.5.2.0\lib\net472\NuGet.Protocol.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NuGet.Resolver, Version=5.2.0.3, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-      <HintPath>..\packages\NuGet.Resolver.5.2.0\lib\net472\NuGet.Resolver.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NuGet.Versioning, Version=5.2.0.3, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-      <HintPath>..\packages\NuGet.Versioning.5.2.0\lib\net472\NuGet.Versioning.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

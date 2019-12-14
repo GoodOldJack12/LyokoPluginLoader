@@ -18,14 +18,14 @@ namespace LyokoPluginLoader
   {
       private DirectoryInfo pluginDirectory;
       public List<LyokoAPIPlugin> Plugins;
-      private DependencyLoader DependencyLoader { get; }
+      //private DependencyLoader DependencyLoader { get; }
       internal static PluginLoader Loader { get; private set; }
       public PluginLoader(string path)
       {
           if (GetOrCreateDirectory(path, out pluginDirectory))
           {
               Info.SetConfigPath(path);
-              DependencyLoader = new DependencyLoader(Path.Combine(path, "lib"));
+              //DependencyLoader = new DependencyLoader(Path.Combine(path, "lib"));
               LoadPlugins();
               RegisterListeners();
               LoaderInfo.SetInstance(this);
@@ -40,7 +40,7 @@ namespace LyokoPluginLoader
           if (GetOrCreateDirectory(path, out pluginDirectory))
           {
               Info.SetConfigPath(pluginConfigDirectory);
-              DependencyLoader = new DependencyLoader(Path.Combine(path, "lib"));
+              //DependencyLoader = new DependencyLoader(Path.Combine(path, "lib"));
               LoadPlugins();
               RegisterListeners();
               LoaderInfo.SetInstance(this);
@@ -75,19 +75,24 @@ namespace LyokoPluginLoader
           List<String> pluginFiles = new List<string>(Directory.GetFiles(pluginDirectory.FullName));
           pluginFiles.RemoveAll(name => !name.EndsWith(".dll"));
           List<LyokoAPIPlugin> UnloadedPlugins = new List<LyokoAPIPlugin>();
-          var unloadedTypes = (
-              // From each file in the files.
-              from file in pluginFiles
-              // Load the assembly.
-              let asm = Assembly.LoadFile(file)
-              // For every type in the assembly that is visible outside of
-              // the assembly.
-              from type in asm.GetExportedTypes()
-              // Where the type implements the interface.
-              where typeof(LyokoAPIPlugin).IsAssignableFrom(type)
-              // Create the instance
-              select type
-          ).ToList();
+
+          var unloadedTypes = new List<Type>();
+          foreach (var file in pluginFiles)
+          {
+              try
+              {
+                  Assembly asm = Assembly.LoadFile(file);
+                  foreach (var type in asm.GetExportedTypes())
+                  {
+                      if (typeof(LyokoAPIPlugin).IsAssignableFrom(type)) unloadedTypes.Add(type);
+                  }
+              }catch (Exception e)
+              {
+               LyokoLogger.Log("LPL",$"Assembly {file} could not be loaded: {e.ToString()}" );   
+              }
+              
+          }
+
           Plugins = new List<LyokoAPIPlugin>();
           #region LoadLogger
           var loggerplugin = unloadedTypes.Find(type => type.Name.Equals("LoggerPlugin"));
@@ -120,9 +125,9 @@ namespace LyokoPluginLoader
               {
                   UnloadedPlugins.Add((LyokoAPIPlugin) Activator.CreateInstance(type));
               }
-              catch (Exception)
+              catch (Exception e)
               {
-                  LyokoLogger.Log("LyokoPluginLoader",$"An unidentified plugin ({type.Assembly.FullName}) could not be loaded! Check if Your plugin has the right API version!");
+                  LyokoLogger.Log("LyokoPluginLoader",$"An unidentified plugin ({type.Assembly.FullName}) could not be loaded! Check if Your plugin has the right API version! Stacktrace: \n {e.ToString()} {e.Source}");
               }
           }
           //LyokoLogger.Log("LPL",$"Enabling plugins"); 
