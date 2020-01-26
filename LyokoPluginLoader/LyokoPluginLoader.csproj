@@ -73,6 +73,7 @@
     <Compile Include="Commands\Plugins\Disable.cs" />
     <Compile Include="Commands\Plugins\Enable.cs" />
     <Compile Include="Commands\Plugins\Pluginlist.cs" />
+    <Compile Include="Commands\Plugins\Update.cs" />
     <Compile Include="DependencyLoading\DependencyLoader.cs" />
     <Compile Include="DependencyLoading\AutomaticNugetDownloader.cs" />
     <Compile Include="DependencyLoading\ManualNugetDownloader.cs" />

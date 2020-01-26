@@ -16,7 +16,7 @@ namespace LyokoPluginLoader
     //TODO: onGameStart(), DisableAll(), EnableAll()
   public class PluginLoader
   {
-      private DirectoryInfo pluginDirectory;
+      public DirectoryInfo pluginDirectory;
       public List<LyokoAPIPlugin> Plugins;
       //private DependencyLoader DependencyLoader { get; }
       internal static PluginLoader Loader { get; private set; }

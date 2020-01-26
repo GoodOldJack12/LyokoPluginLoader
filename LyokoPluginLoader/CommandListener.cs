@@ -18,6 +18,7 @@ namespace LyokoPluginLoader
             _commands.Add(new Enable());
             _commands.Add(new Disable());
             _commands.Add(new Help());
+            _commands.Add(new Update());
         }
         
         public static void StartListening()

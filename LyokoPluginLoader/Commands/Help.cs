@@ -6,7 +6,7 @@ namespace LyokoPluginLoader.Commands
         public override string Name { get; } = "help";
         protected override bool DoCommand(string[] args)
         {
-            Output("Commands: [api.plugins.enable,api.plugins.disable,api.plugins.list(.disabled/.enabled]");
+            Output("Commands: [api.plugins.enable, api.plugins.disable, api.plugins.list(.disabled/.enabled], api.plugins.update");
             return true;
         }
     }
