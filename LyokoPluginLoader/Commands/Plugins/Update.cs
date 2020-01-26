@@ -84,8 +84,16 @@ namespace LyokoPluginLoader.Commands
                                 {
                                     plugin.Disable();
                                     File.Move(path,PluginLoader.Loader.pluginDirectory.FullName + @"\" + getFileName(url));
-                                    newPlugin.Enable();
-                                    Output("The plugin " + newPlugin.Name + " has been updated!");
+                                    bool loaded = newPlugin.Enable();
+                                    if (loaded)
+                                    {
+                                        PluginLoader.Loader.Plugins.Add(newPlugin);
+                                        Output("The plugin " + newPlugin.Name + " has been updated and enabled!");
+                                    }
+                                    else
+                                    {
+                                        Output("The plugin " + newPlugin.Name + " has been updated but couldn't be enabled!");
+                                    }
                                 }
                                 else
                                 {
