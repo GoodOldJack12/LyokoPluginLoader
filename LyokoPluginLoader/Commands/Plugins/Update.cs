@@ -35,7 +35,7 @@ namespace LyokoPluginLoader.Commands
                         LyokoLogger.Log("LPL","An error has occured while downloading the plugin list!");
                     }
                 };
-                wc.DownloadFileAsync(new Uri("https://github.com/LyokoAPI/LyokoAPIDoc/blob/V2/docs/LyokoPlugin/pluginlinks.yml"), path);
+                wc.DownloadFileAsync(new Uri("https://raw.githubusercontent.com/LyokoAPI/LyokoAPIDoc/V2/docs/LyokoPlugin/pluginlinks.yml"), path);
             }
 
             else
