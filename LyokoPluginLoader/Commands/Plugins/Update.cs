@@ -23,7 +23,6 @@ namespace LyokoPluginLoader.Commands
                 WebClient wc = new WebClient();
                 string path = Path.GetTempFileName();
                 
-                wc.DownloadFileAsync(new System.Uri("https://github.com/LyokoAPI/LyokoAPIDoc/blob/V2/docs/LyokoPlugin/pluginlinks.yml"), path);
                 wc.DownloadFileCompleted += delegate(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
                 {
                     if(e.Error == null && !e.Cancelled)
@@ -36,6 +35,7 @@ namespace LyokoPluginLoader.Commands
                         LyokoLogger.Log("LPL","An error has occured while downloading the plugin list!");
                     }
                 };
+                wc.DownloadFileAsync(new Uri("https://github.com/LyokoAPI/LyokoAPIDoc/blob/V2/docs/LyokoPlugin/pluginlinks.yml"), path);
             }
 
             else
@@ -65,8 +65,7 @@ namespace LyokoPluginLoader.Commands
             LyokoLogger.Log("LPL", "Checking plugin: " + plugin.Name);
             WebClient wc = new WebClient();
             string path = Path.GetTempFileName();
-                
-            wc.DownloadFileAsync(new Uri(url), path);
+            
             wc.DownloadFileCompleted += delegate(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
             {
                 if(e.Error == null && !e.Cancelled)
@@ -112,6 +111,7 @@ namespace LyokoPluginLoader.Commands
                     LyokoLogger.Log("LPL","An error has occured while downloading the plugin!");
                 }
             };
+            wc.DownloadFileAsync(new Uri(url), path);
         }
         
         private string getFileName(string url)
