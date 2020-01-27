@@ -19,23 +19,22 @@ namespace LyokoPluginLoader.Commands
             if (LoaderInfo.DevMode || !LoaderInfo.StoryModeEnabled)
             {
                 CommandOutputEvent.Call("plugins.update", "Updating plugins!");
-                
+
                 WebClient wc = new WebClient();
-                string path = Path.GetTempFileName();
-                
-                wc.DownloadFileCompleted += delegate(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+                ServicePointManager.ServerCertificateValidationCallback += (send, certificate, chain, sslPolicyErrors) => { return true; };
+                wc.DownloadStringCompleted += delegate(object sender, DownloadStringCompletedEventArgs e)
                 {
                     if(e.Error == null && !e.Cancelled)
                     {
                         LyokoLogger.Log("LPL","Plugin list download completed!");
-                        checkPlugins(path);
+                        checkPlugins(e.Result);
                     }
                     else
                     {
-                        LyokoLogger.Log("LPL","An error has occured while downloading the plugin list!");
+                        LyokoLogger.Log("LPL","An error has occured while downloading the plugin list!\n" + e.Error.Message + "\n" + e.Error.StackTrace);
                     }
                 };
-                wc.DownloadFileAsync(new Uri("https://raw.githubusercontent.com/LyokoAPI/LyokoAPIDoc/V2/docs/LyokoPlugin/pluginlinks.yml"), path);
+                wc.DownloadStringAsync(new Uri("https://raw.githubusercontent.com/LyokoAPI/LyokoAPIDoc/V2/docs/LyokoPlugin/pluginlinks.yml"));
             }
 
             else
@@ -46,10 +45,10 @@ namespace LyokoPluginLoader.Commands
             return true;
         }
 
-        private void checkPlugins(string path)
+        private void checkPlugins(string pluginsFile)
         {
             Deserializer deserializer = new Deserializer();
-            Dictionary<string,string> urls = deserializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(path));
+            Dictionary<string,string> urls = deserializer.Deserialize<Dictionary<string, string>>(pluginsFile);
 
             foreach (LyokoAPIPlugin plugin in LoaderInfo.Instance.Plugins)
             {
@@ -66,6 +65,7 @@ namespace LyokoPluginLoader.Commands
             WebClient wc = new WebClient();
             string path = Path.GetTempFileName();
             
+            ServicePointManager.ServerCertificateValidationCallback += (send, certificate, chain, sslPolicyErrors) => { return true; };
             wc.DownloadFileCompleted += delegate(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
             {
                 if(e.Error == null && !e.Cancelled)
@@ -108,7 +108,7 @@ namespace LyokoPluginLoader.Commands
                 }
                 else
                 {
-                    LyokoLogger.Log("LPL","An error has occured while downloading the plugin!");
+                    LyokoLogger.Log("LPL","An error has occured while downloading the plugin!\n" + e.Error.Message + "\n" + e.Error.StackTrace);
                 }
             };
             wc.DownloadFileAsync(new Uri(url), path);
