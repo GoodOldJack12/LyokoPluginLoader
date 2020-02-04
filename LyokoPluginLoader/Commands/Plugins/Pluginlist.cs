@@ -1,18 +1,20 @@
 using System;
 using System.Linq;
 using LyokoAPI.Events;
+using LyokoAPI.Exceptions;
 using LyokoPluginLoader.Commands.Exceptions;
+using CommandException = LyokoAPI.Exceptions.CommandException;
 
 namespace LyokoPluginLoader.Commands
 {
-    internal class Pluginlist : Command
+    internal class Pluginlist : LyokoAPI.Commands.Command
     {
         public override string Usage { get; } = "api.plugins.list(.enabled/.disabled/.all/(nothing)";
         public override string Name { get; } = "list";
 
-        protected override bool DoCommand(string[] args)
+        protected override void DoCommand(string[] args)
         {
-            CheckArgs(args, 0, 2);
+            CheckLength(0, 2);
             string response = "";
             if (args.Any())
             {
@@ -32,7 +34,7 @@ namespace LyokoPluginLoader.Commands
                 }
                 else
                 {
-                    throw new CommandException(this);
+                    throw new CommandException(this,"invalid argument!");
                 }
             }
             else
@@ -41,7 +43,6 @@ namespace LyokoPluginLoader.Commands
                 CommandOutputEvent.Call("PluginList",LoaderInfo.SimplePluginList());
             }
             LyokoLogger.Log("LyokoPluginLoader",response);
-            return true;
         }
     }
 }

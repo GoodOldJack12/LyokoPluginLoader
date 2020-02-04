@@ -1,18 +1,18 @@
 using LyokoAPI.Events;
-using LyokoPluginLoader.Commands.Exceptions;
+using LyokoAPI.Exceptions;
 
 namespace LyokoPluginLoader.Commands
 {
-    internal class Disable : Command
+    internal class Disable : LyokoAPI.Commands.Command
     {
         public override string Usage { get; } = "api.plugins.disable.all";
         public override string Name { get; } = "disable";
-        protected override bool DoCommand(string[] args)
+        protected override void DoCommand(string[] args)
         {
-            CheckArgs(args,1,1);
+            CheckLength(1,1);
             if (!(args[0].Equals("all")))
             {
-                throw new CommandException(this);
+                throw new CommandException(this,"invalid argument");
             }
             if (LoaderInfo.DevMode || !LoaderInfo.StoryModeEnabled)
             {
@@ -23,7 +23,6 @@ namespace LyokoPluginLoader.Commands
                 Output("Story mode is enabled!");
             }
             
-            return true;
         }
     }
 }

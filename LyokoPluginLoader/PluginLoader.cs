@@ -18,6 +18,7 @@ namespace LyokoPluginLoader
   {
       private DirectoryInfo pluginDirectory;
       public List<LyokoAPIPlugin> Plugins;
+      private CommandListener CommandListener = new CommandListener();
       //private DependencyLoader DependencyLoader { get; }
       internal static PluginLoader Loader { get; private set; }
       public PluginLoader(string path)
