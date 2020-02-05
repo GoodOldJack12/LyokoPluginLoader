@@ -51,6 +51,17 @@ namespace LyokoPluginLoader
           Loader = this;
       }
 
+      public void ReInit()
+      {
+          if (!LoaderInfo.DevMode)
+          {
+              throw new InvalidOperationException("LPL is not in dev mode!");
+          }
+          Quit(this, EventArgs.Empty);
+          Plugins.RemoveAll(plugin => true);
+          LoadPlugins();
+          RegisterListeners();
+      }
 
       private bool GetOrCreateDirectory(string path, out DirectoryInfo directory)
       {
